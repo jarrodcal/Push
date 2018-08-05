@@ -82,17 +82,17 @@ func InitAll() {
 	connectorCfg.ProxyServerPort, _ 		= c.String("Server", "ProxyServerPort")
 	connectorCfg.ApiServerPort, _ 			= c.String("Server", "ApiServerPort")
 	connectorCfg.TcpServerPort, _ 			= c.String("Server", "TcpServerPort")
-	connectorCfg.LogFile, _ 				= c.String("Log", "LogFile")
-	connectorCfg.LogLevel, _ 				= c.Int("Log", "LogLevel")
-	connectorCfg.DefaultConnectionSize, _ 	= c.Int("Server", "DefaultConnectionSize")
+	connectorCfg.LogFile, _ 			= c.String("Log", "LogFile")
+	connectorCfg.LogLevel, _ 			= c.Int("Log", "LogLevel")
+	connectorCfg.DefaultConnectionSize, _ 		= c.Int("Server", "DefaultConnectionSize")
 	connectorCfg.MaxConnectionSize, _ 		= c.Int("Server", "MaxConnectionSize")
 	connectorCfg.StateInfoInterval, _ 		= c.Int("Server", "StateInfoInterval")
 	connectorCfg.PingInterval, _ 			= c.Int("Server", "PingInterval")
 	connectorCfg.PingTimeout, _ 			= c.Int("Server", "PingTimeout")
 	connectorCfg.HeartbeatInterval, _ 		= c.Int("Server", "HeartbeatInterval")
-	connectorCfg.PublicKey 					= publicKey
-	connectorCfg.PrivateKey 				= privateKey
-	connectorCfg.LocalIp, _ 				= GetLocalHostIp()
+	connectorCfg.PublicKey 				= publicKey
+	connectorCfg.PrivateKey 			= privateKey
+	connectorCfg.LocalIp, _ 			= GetLocalHostIp()
 
 	logger.Init("Connector", connectorCfg.LogLevel, connectorCfg.LogFile)
 	restartFlag = false
