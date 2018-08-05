@@ -9,7 +9,7 @@
 * 3 和端保持的协程会一直读取端是否有数据过来，当发送数据过来会派生出一个goroutine负责分析数据包，判断出哪种业务包，然后再由这个goroutine继续派生出一个协程，负责写数据给端上。和端通信上没有阻塞，一个协程一直负责读，一个协程负责分析报文，一个负责写。当端源源不断上行数据时，一个连接会存在3个协程。
 * 4 Server和客户端的通信协议为二进制，包含协议版本号、此次通信id、消息类型、防篡改数值、数据包大小等字段。
 * 5 客户端连接会存储在一个全局的map表中，以端的设备ID为key，value为该连接有关信息的指针，具体数据结构：
-type connection struct {
+	type connection struct {
 	* tcpConn        *net.TCPConn
 	* secretKey      string
 	* version        string
@@ -32,5 +32,5 @@ type connection struct {
 同时在线数、下发延时、到达率
 
 ## 待跟进：
-* 1 存在goroutine巨多影响单机性能时，处理连接数据部分可引入消息队列模式。
+* 1 存在goroutine巨多影响单机性能时，处理连接数据部分可引入类似消息队列模式。
 * 2 new(connection)如果后期存在频繁创建、回收，可引入内存池。
