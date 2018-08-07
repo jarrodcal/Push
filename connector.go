@@ -6,7 +6,6 @@ import (
 	"net"
 	"os"
 	"lib/logger"
-	"os/signal"
 	"runtime"
 	"runtime/pprof"
 	"strings"
@@ -132,41 +131,6 @@ func GetLocalHostIp() (ip string, err error) {
 	}
 
 	return "", nil
-}
-
-//kill -s SIGUSR2 pid
-//kill -s SIGUSR1 pid
-func profileInfo() {
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, syscall.SIGUSR1)
-	signal.Notify(c, syscall.SIGUSR2)
-	var fcpu *os.File
-	var fmem *os.File
-	var err error
-
-	for sig := range c {
-		switch sig {
-		case syscall.SIGUSR1:
-			fcpu, err = os.Create("./Connector_cpu.prof")
-			if err != nil {
-				logger.Error("%v", err)
-				continue
-			}
-
-			pprof.StartCPUProfile(fcpu)
-
-		case syscall.SIGUSR2:
-			pprof.StopCPUProfile()
-			fcpu.Close()
-			fmem, err = os.Create("./Connector_mem.prof")
-			if err != nil {
-				logger.Error("%v", err)
-				continue
-			}
-			pprof.WriteHeapProfile(fmem)
-			fmem.Close()
-		}
-	}
 }
 
 func Watching() {
